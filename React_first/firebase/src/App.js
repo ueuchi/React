@@ -55,7 +55,9 @@ function App() {
     //   console.log(doc.data()))
     //   setData([...data, doc.data()]
     // )
+    //snapshotでデータを取得
     const snapshot = await firebase.firestore().collection('collectionA').get()
+    //取得したデータを配列にし、map関数でデータを持ってくる
     const datas = sanpshot.docs.map(doc => doc.data())
     setData(datas)
   }
@@ -74,8 +76,8 @@ function App() {
       (snapshot) => {
         console.log(snapshot)
         console.log(snapshot.docs)
-        const datas = snapshot.docs.map(doc =>{
-          setData([...data, doc.data()])
+        const datas = snapshot.docs.map(doc =>{ doc.data()
+          setData(datas)
         })
       }
     )
@@ -103,3 +105,10 @@ function App() {
 }
 
 export default App;
+
+//async awaitでデータを取得すると簡単
+//snapshotでデータを取得
+//取得したデータを配列にし、map関数でデータを持ってくる
+//ネストされたオブジェクトのフィールドを更新する
+//監視をやめるとリアルタイム更新がしなくなる
+//サブコレクションで特定のデータをとってくる
