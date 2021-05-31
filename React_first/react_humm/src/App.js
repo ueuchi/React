@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 
 const App = (props) => {
   const [state, setState] =useState(props)
+  //name,priceをstateに置き換えることでstate.nameのような記述を省略できる。
   const {name, price} = state
   
   return (
