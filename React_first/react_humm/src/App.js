@@ -1,9 +1,19 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 const App = (props) => {
   const [state, setState] =useState(props)
   //name,priceをstateに置き換えることでstate.nameのような記述を省略できる。
   const {name, price} = state
+
+  // 毎回renderされる
+  useEffect(() => {
+    console.log('this is like componentDidMount or componentDidUpdata')
+  })
+
+  //最後に記述した配列内の要素が変わるまでrenderされない。
+  useEffect(() => {
+    console.log('This callback is for name only.')
+  }, [name])
   
   return (
     <>
