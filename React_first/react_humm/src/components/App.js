@@ -1,7 +1,31 @@
-import React from 'react';
+import React, {useState, useReducer} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import reducer from '../reducer/index'
 
 const App = () => {
+  //第３引数に初期化処理を書くこともできる。
+  //状態遷移をさせたいタイミングでdispatchを呼ぶ。
+  const [state, dispatch] = useReducer(reducer, [])
+  const [title, setTitle] = useState('')
+  const [body, setBody] = useState('')
+
+  //イベント作成ボタン
+  const addEvent = (e) => {
+    e.preventDefault()
+    console.log({title, body})
+    //{id: 1, title: "t", body: "b"}このようになる
+    dispatch({
+      type: 'CREATE_EVENT',
+      title,
+      body
+    })
+    //フォーム初期化
+    setTitle('')
+    setBody('')
+  }
+
+  console.log({state})
+
   return (
     <div className="container-fluid">
       <h4>イベント作成フォーム</h4>
@@ -9,13 +33,13 @@ const App = () => {
         <div className="form-group">
           {/* labelとidの名前を一緒にしないとタイトルをクリックした時にinputタグにフォーカスが当たらない */}
           <label htmlFor="formEventTitle">タイトル</label>
-          <input className="form-control" id="formEventTitle"/>
+          <input className="form-control" id="formEventTitle" value={title} onChange={e => setTitle(e.target.value)}/>
         </div>
         <div className="form-group">
           <label htmlFor="formEventTitle">ボディー</label>
-          <textarea className="form-control" id="formEventTitle"/>
+          <textarea className="form-control" id="formEventTitle" value={body} onChange={e => setBody(e.target.value)}/>
         </div>
-        <button className="btn btn-primary">イベントを作成する</button>
+        <button className="btn btn-primary" onClick={addEvent}>イベントを作成する</button>
         <button className="btn btn-danger">全てのイベントを削除する</button>
         <h4>イベント一覧</h4>
         <table className="table table-hover">
